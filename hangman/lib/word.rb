@@ -12,25 +12,13 @@ class Word
     @dash_row = Array.new(@word.length, ' _')
   end
 
-  def format_file(file)
-    file.readlines.map(&:chomp).filter { |line| line.length.between?(MINIMUM_WORD_SIZE, MAXIMUM_WORD_SIZE) }
-  end
-
-  def get_word_from_file(file)
-    words = format_file(file)
-    words[rand(words.length)].downcase
-  end
-
-  def show_dash_row
-    word.length.times do |index|
-      print dash_row[index]
-    end
-    puts ''
+  def dash_row_to_s
+    @dash_row.join
   end
 
   def update_dash_row(guess, indexes)
     indexes.each do |index|
-      dash_row[index] = guess
+      dash_row[index] = " #{guess}"
     end
     dash_row
   end
@@ -42,5 +30,16 @@ class Word
   def load_word(word, dash_row)
     @word = word
     @dash_row = dash_row
+  end
+
+  private
+
+  def format_file(file)
+    file.readlines.map(&:chomp).filter { |line| line.length.between?(MINIMUM_WORD_SIZE, MAXIMUM_WORD_SIZE) }
+  end
+
+  def get_word_from_file(file)
+    words = format_file(file)
+    words[rand(words.length)].downcase
   end
 end

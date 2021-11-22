@@ -6,7 +6,7 @@ require_relative 'gamestate_management'
 
 class Hangman
   include GamestateManagement
-  attr_accessor :board, :computer, :player
+  attr_accessor :board, :player
 
   def initialize
     @board = Board.new
@@ -37,7 +37,9 @@ class Hangman
 
   def save_current_game?
     Output.save
-    save_game(player.name, board.word.word, board.word.dash_row, board.gallow.gallow, board.gallow.failure_count, board.used_letters) unless gets.chomp == 'no'
+    return unless gets.chomp == 'yes'
+
+    save_game(player.name, board.word.word, board.word.dash_row, board.gallow.gallow, board.gallow.failure_count, board.used_letters) 
   end
 
   def end_game

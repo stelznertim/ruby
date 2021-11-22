@@ -2,7 +2,6 @@ class Board
   require_relative 'gallow'
   require_relative 'word'
 
-  attr_reader :size
   attr_accessor :word, :gallow, :used_letters
 
   def initialize
@@ -15,7 +14,7 @@ class Board
     print 'Already used letters: '
     pp used_letters
     gallow.show_gallow
-    word.show_dash_row
+    puts word.dash_row_to_s
     puts ''
   end
 

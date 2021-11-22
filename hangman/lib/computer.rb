@@ -1,10 +1,8 @@
 class Computer
-  attr_accessor :board, :word_index
-
   def self.compare_word(guess, word)
     matches = []
     @word_index = 0
-    word.each_char { |char| matches = char == guess ? matching_index(matches, true) : matching_index(matches, false)}
+    word.each_char { |char| matches = matching_index(matches, char == guess) }
     matches
   end
 
