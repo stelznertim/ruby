@@ -1,0 +1,4 @@
+computer funktionalität in word
+alle fragezeichen methoden geben bool zurück sonst ? weg
+board.word.word überarbeiten
+attr_reader/accessor überarbeiten
