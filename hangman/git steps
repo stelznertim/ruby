@@ -1,0 +1,7 @@
+1. repository in github.com
+2. local copy of main branch
+3. checkout new branch git checkout -b <branch-name>
+4. add -> commit(local) -> push ->
+5. pull request from branch (not main) to merge code to main
+6. pull request approval (configure)
+7. merge 
