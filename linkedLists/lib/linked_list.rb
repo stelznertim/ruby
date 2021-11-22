@@ -8,7 +8,7 @@ class LinkedList
     @tail = nil
   end
 
-  def appendNode(value)
+  def append_node(value)
     new_node = Node.new(value)
     @head ||= new_node
     if !@tail
@@ -19,7 +19,7 @@ class LinkedList
     @tail = new_node
   end
 
-  def prependNode(value)
+  def prepend_node(value)
     new_node = Node.new(value, @head)
     @head = new_node
   end
