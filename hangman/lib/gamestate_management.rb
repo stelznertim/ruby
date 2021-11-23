@@ -1,14 +1,17 @@
 module GamestateManagement
   require 'yaml'
 
-  def save_game(name, word, dash_row, gallow, failure_count, used_letters)
+  def save_game(name, word, dash_row, gallow, failure_count, used_letters) # parameterübergabe nicht notwendig
     #  create save_games directory or check existance
     directory_path = 'save_games'
     Dir.mkdir(directory_path) unless File.exist?(directory_path)
-    # create file to save game
+    # create file to save game, json.serialize um objekt abzuspeichern
     puts 'Enter the desired name of your save file: '
     filename = gets.chomp
-    save = File.open("./save_games/#{filename}_#{name}.yaml", 'w') unless File.exist?("./save_games/#{filename}_#{name}.yaml")
+    unless File.exist?("./save_games/#{filename}_#{name}.yaml")
+      save = File.open("./save_games/#{filename}_#{name}.yaml",
+                       'w')
+    end
     # write the yaml code into the created file
     YAML.dump([name, word, dash_row, gallow, failure_count, used_letters], save)
     save.close
@@ -29,5 +32,7 @@ module GamestateManagement
     board.word.load_word(data_storage[1], data_storage[2])
     board.gallow.load_gallow(data_storage[3], data_storage[4])
     board.load_used_letters(data_storage[5])
+    # json.dig/yaml.dig parameter laden
+    # object destructuring
   end
 end

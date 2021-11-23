@@ -1,5 +1,6 @@
-class Word
+require_relative 'computer'
 
+class Word
   attr_accessor :dash_row
   attr_reader :word, :file
 
@@ -12,15 +13,15 @@ class Word
     @dash_row = Array.new(@word.length, ' _')
   end
 
-  def dash_row_to_s
-    @dash_row.join
-  end
-
   def update_dash_row(guess, indexes)
     indexes.each do |index|
       dash_row[index] = " #{guess}"
     end
     dash_row
+  end
+
+  def compare_guess_to_word(guess)
+    Computer.compare_word(guess, word)
   end
 
   def word_finished?
