@@ -4,12 +4,12 @@ require_relative 'output'
 require_relative 'gamestate_management'
 
 class Hangman
-  include GamestateManagement
+  extend GamestateManagement
   attr_accessor :board, :player
 
-  def initialize
-    @board = Board.new
-    @player = Player.new
+  def initialize(args)
+    @board = Board.new(args[:board])
+    @player = Player.new(args[:player])
   end
 
   def start_game
@@ -18,10 +18,11 @@ class Hangman
     play_game
   end
 
-  def load_existing_game
+  def self.load_existing_game
     Output.load
-    load_game(player.name) unless gets.chomp == 'no'
-    start_game
+    return {} if gets.chomp == 'no'
+
+    Hangman.load_game('Tom')
   end
 
   def play_game
@@ -37,8 +38,7 @@ class Hangman
     Output.save
     return unless gets.chomp == 'yes'
 
-    save_game(player.name, board.word.word, board.word.dash_row, board.gallow.gallow, board.gallow.failure_count,
-              board.used_letters)
+    Hangman.save_game(board, player)
   end
 
   def end_game
@@ -50,5 +50,5 @@ class Hangman
   end
 end
 
-game = Hangman.new
-game.load_existing_game
+game_params = Hangman.load_existing_game
+Hangman.new(game_params).start_game

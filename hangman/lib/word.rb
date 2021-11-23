@@ -7,10 +7,14 @@ class Word
   MINIMUM_WORD_SIZE = 5
   MAXIMUM_WORD_SIZE = 12
 
-  def initialize
+  def initialize(args)
     @file = File.open('5desk.txt') # no instance needed
-    @word = get_word_from_file(file)
-    @dash_row = Array.new(@word.length, ' _')
+    @word = args[:word] || get_word_from_file(file)
+    @dash_row = args[:dash_row] || Array.new(@word.length, ' _')
+  end
+
+  def to_h
+    { word: word, dash_row: dash_row }
   end
 
   def update_dash_row(guess, indexes)

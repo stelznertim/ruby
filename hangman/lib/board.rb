@@ -4,10 +4,14 @@ class Board
 
   attr_accessor :word, :gallow, :used_letters
 
-  def initialize
-    @word = Word.new
-    @gallow = Gallow.new
-    @used_letters = []
+  def initialize(args)
+    @word = Word.new(args[:word] || {})
+    @gallow = Gallow.new(args[:gallow] || {})
+    @used_letters = args[:used_letters] || []
+  end
+
+  def to_h
+    { gallow: { failure_count: gallow.failure_count }, word: word.to_h, used_letters: used_letters }
   end
 
   def show

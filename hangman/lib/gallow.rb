@@ -2,6 +2,7 @@ class Gallow
   attr_accessor :gallow_appearance, :failure_count
 
   GALLOW_DESIGN = [
+    '',
     %(    ___),
     %(    |___),
     %(    |
@@ -50,9 +51,9 @@ class Gallow
     |___)
   ]
 
-  def initialize
-    @failure_count = 0
-    @gallow_appearance = ''
+  def initialize(args)
+    @failure_count = args[:failure_count] || 0
+    @gallow_appearance = GALLOW_DESIGN[failure_count]
   end
 
   def update_gallow
