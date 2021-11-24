@@ -1,70 +1,68 @@
 class Gallow
-  attr_accessor :gallow, :failure_count
+  attr_accessor :gallow_appearance, :failure_count
 
   GALLOW_DESIGN = [
-    %{    ___},
-    %{    |___},
-    %{    |
-    |___},
-    %{    |
+    '',
+    %(    ___),
+    %(    |___),
+    %(    |
+    |___),
+    %(    |
     |
-    |___},
-    %{    |
-    |
-    |
-    |___},
-    %{    |
+    |___),
+    %(    |
     |
     |
-    |
-    |___},
-    %{     _____
-    |     
+    |___),
+    %(    |
     |
     |
     |
-    |___},
-    %{     _____
+    |___),
+    %(     _____
+    |
+    |
+    |
+    |
+    |___),
+    %(     _____
     |     |
     |
     |
     |
-    |___},
-    %{     _____
+    |___),
+    %(     _____
     |     |
     |     O
     |
     |
-    |___},
-    %{     _____
+    |___),
+    %(     _____
     |     |
     |     O
     |    /|\\
     |
-    |___},
-    %{     _____
+    |___),
+    %(     _____
     |     |
     |     O
     |    /|\\ YOU HAVE BEEN HANGED ☠️  GAME OVER!
     |    / \\
-    |___}]
+    |___)
+  ]
 
-  def initialize
-    @failure_count = 0
-    @gallow = ''
-  end
-
-  def show_gallow
-    puts gallow
+  def initialize(args)
+    @failure_count = args[:failure_count] || 0
+    @gallow_appearance = GALLOW_DESIGN[failure_count]
   end
 
   def update_gallow
-    @gallow = GALLOW_DESIGN[failure_count]
+    @gallow_appearance = GALLOW_DESIGN[failure_count]
     @failure_count += 1
   end
 
   def hangman_completed?
-    gallow == GALLOW_DESIGN[-1]
+    gallow_appearance == GALLOW_DESIGN[-1]
   end
 
   def load_gallow(gallow, failure_count)

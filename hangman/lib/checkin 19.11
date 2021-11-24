@@ -1,4 +1,2 @@
-computer funktionalität in word
-alle fragezeichen methoden geben bool zurück sonst ? weg
-board.word.word überarbeiten
+game_params als objekt übergeben und mit methoden werte übergeben
 attr_reader/accessor überarbeiten

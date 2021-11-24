@@ -1,19 +1,20 @@
-class Word
+require_relative 'computer'
 
+class Word
   attr_accessor :dash_row
   attr_reader :word, :file
 
   MINIMUM_WORD_SIZE = 5
   MAXIMUM_WORD_SIZE = 12
 
-  def initialize
+  def initialize(args)
     @file = File.open('5desk.txt') # no instance needed
-    @word = get_word_from_file(file)
-    @dash_row = Array.new(@word.length, ' _')
+    @word = args[:word] || get_word_from_file(file)
+    @dash_row = args[:dash_row] || Array.new(@word.length, ' _')
   end
 
-  def dash_row_to_s
-    @dash_row.join
+  def to_h
+    { word: word, dash_row: dash_row }
   end
 
   def update_dash_row(guess, indexes)
@@ -21,6 +22,10 @@ class Word
       dash_row[index] = " #{guess}"
     end
     dash_row
+  end
+
+  def compare_guess_to_word(guess)
+    Computer.compare_word(guess, word)
   end
 
   def word_finished?

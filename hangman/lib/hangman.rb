@@ -1,16 +1,15 @@
-require_relative 'computer'
 require_relative 'player'
 require_relative 'board'
 require_relative 'output'
 require_relative 'gamestate_management'
 
 class Hangman
-  include GamestateManagement
+  extend GamestateManagement
   attr_accessor :board, :player
 
-  def initialize
-    @board = Board.new
-    @player = Player.new
+  def initialize(args)
+    @board = Board.new(args[:board])
+    @player = Player.new(args[:player])
   end
 
   def start_game
@@ -19,32 +18,31 @@ class Hangman
     play_game
   end
 
-  def load_game?
+  def self.load_existing_game
     Output.load
-    load_game(player.name) unless gets.chomp == 'no'
-    start_game
+    return {} if gets.chomp == 'no'
+
+    Hangman.load_game('Tom')
   end
 
   def play_game
     until game_finished?
-      save_current_game?
+      save_current_game
       guess = player.make_guess
-      indexes = Computer.compare_word(guess, board.word.word)
-      board.update(guess, indexes)
+      board.update(guess)
     end
     end_game
   end
 
-  def save_current_game?
+  def save_current_game
     Output.save
     return unless gets.chomp == 'yes'
 
-    save_game(player.name, board.word.word, board.word.dash_row, board.gallow.gallow, board.gallow.failure_count, board.used_letters) 
+    Hangman.save_game(board, player)
   end
 
   def end_game
     board.word.word_finished? ? Output.winner_announcement(player.name) : Output.loser_announcement(board.word.word)
-    # call method from gamestate-management to delete saved file if there is one
   end
 
   def game_finished?
@@ -52,5 +50,5 @@ class Hangman
   end
 end
 
-game = Hangman.new
-game.load_game?
+game_params = Hangman.load_existing_game
+Hangman.new(game_params).start_game

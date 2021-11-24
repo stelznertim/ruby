@@ -4,21 +4,34 @@ class Board
 
   attr_accessor :word, :gallow, :used_letters
 
-  def initialize
-    @word = Word.new
-    @gallow = Gallow.new
-    @used_letters = []
+  def initialize(args)
+    @word = Word.new(args[:word] || {})
+    @gallow = Gallow.new(args[:gallow] || {})
+    @used_letters = args[:used_letters] || []
+  end
+
+  def to_h
+    { gallow: { failure_count: gallow.failure_count }, word: word.to_h, used_letters: used_letters }
   end
 
   def show
     print 'Already used letters: '
     pp used_letters
-    gallow.show_gallow
-    puts word.dash_row_to_s
+    puts gallow_to_s
+    puts dash_row_to_s
     puts ''
   end
 
-  def update(guess, indexes)
+  def dash_row_to_s
+    puts word.dash_row.join
+  end
+
+  def gallow_to_s
+    puts gallow.gallow_appearance
+  end
+
+  def update(guess)
+    indexes = word.compare_guess_to_word(guess)
     bad_guess?(indexes) ? gallow.update_gallow : word.update_dash_row(guess, indexes)
     used_letters << guess
     show
