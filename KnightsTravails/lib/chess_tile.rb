@@ -1,7 +1,7 @@
 class ChessTile
-  def initialize(coordinate)
+  def initialize(coordinate, parent = nil)
     @tile_coordinate = coordinate
     @occupied_by_knight = false
-    @was_occupied = false
+    @parent = parent
   end
 end
