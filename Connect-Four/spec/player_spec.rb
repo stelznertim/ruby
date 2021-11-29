@@ -7,7 +7,7 @@ require_relative '../lib/player'
 
 describe Player do
   let(:player) { Player.new('Tim', '▵') }
-  context 'check if player has the right attr' do
+  context 'check if player attributes are initialized correctly' do
     it 'has right name' do
       expect(player.name).to eq('Tim')
     end
