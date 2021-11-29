@@ -1,4 +1,5 @@
 require_relative '../lib/player'
+require_relative '../lib/board'
 
 # ------ requirements of the player class ------
 #   have a name and a symbol for your disc
@@ -13,19 +14,15 @@ describe Player do
     end
 
     it 'has right symbol for disc' do
-      expect(player.symbol).to eq('▵')
+      expect(player.disc).to eq('▵')
     end
   end
 
-  context 'let player put a disc in a column' do
-    it 'player put disc in an allowed column' do
-      column = 4
-      expect(player.place_disc(column)).to be_valid_turn
-    end
-
-    it ' player put disc in a nonexistend column' do
-      column = 20
-      expect(player.place_disc(column)).not_to be_valid_turn
+  context 'let player select a column for his disc' do
+    it 'selects disc' do
+      allow($stdin).to receive(:gets).and_return(4)
+      column = $stdin.gets
+      expect(column).to eq(4)
     end
   end
 end
