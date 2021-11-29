@@ -1,3 +1,6 @@
 class Player
-  def initialize; end
+  def initialize(name, symbol)
+    @name = name
+    @disc = symbol
+  end
 end
