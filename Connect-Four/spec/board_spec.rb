@@ -1,8 +1,8 @@
 require_relative '../lib/board'
 
 describe Board do
-  let(:board) { Board.new }
   context 'check that board is initialized correctly' do
+  board = Board.new
     it 'initialized rows correctly' do
       expect(board.rows).to eq(6)
     end
