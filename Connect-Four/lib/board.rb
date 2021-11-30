@@ -7,7 +7,7 @@ class Board
     @grid = Array.new(6) { Array.new(7) }
   end
 
-  def valid_turn?(input)
+  def valid_column?(input)
     input < columns ? check_rows(input) : false
   end
 
@@ -29,6 +29,48 @@ class Board
     grid
   end
 
+  def game_over?(symbol)
+    grid.each do |row|
+      return true if check_grid_line(row, symbol)
+    end
+
+    grid.transpose.each do |column|
+      return true if check_grid_line(column, symbol)
+    end
+
+    diagonals = find_diagonals(grid)
+    diagonals.each do |diagonal|
+      return true if check_grid_line(diagonal, symbol)
+    end
+
+    reverse_diagonals = find_diagonals(grid.reverse)
+    reverse_diagonals.each do |reverse_diagonal|
+      return true if check_grid_line(reverse_diagonal, symbol)
+    end
+    false
+  end
+
+  def check_grid_line(line, symbol)
+    symbol_counter = 0
+    line.each do |line_item|
+      if line_item == symbol
+        symbol_counter += 1
+      else
+        symbol_counter = 0
+      end
+      return true if symbol_counter == 4
+    end
+    false
+  end
+
+  def find_diagonals(grid)
+    (0..grid.size - 4).map do |i|
+      (0..grid.size - 1 - i).map { |j| grid[i + j][j] }
+    end.concat((1..grid.first.size - 4).map do |j|
+      (0..grid.size - j - 1).map { |i| grid[i][j + i] }
+    end)
+  end
+
   def show
     puts <<-BOARD
     #{grid[0][0]} | #{grid[0][1]} | #{grid[0][2]} | #{grid[0][3]} | #{grid[0][4]} | #{grid[0][5]} | #{grid[0][6]}
@@ -45,4 +87,3 @@ class Board
     BOARD
   end
 end
-Board.new.show

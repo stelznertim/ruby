@@ -8,21 +8,22 @@ require_relative '../lib/board'
 
 describe Player do
   let(:player) { Player.new('Tim', '▵') }
-  context 'check if player attributes are initialized correctly' do
-    it 'has right name' do
+  context 'player gets correctly initialized' do
+    it 'Tim is correct Name' do
       expect(player.name).to eq('Tim')
     end
 
-    it 'has right symbol for disc' do
+    it '▵ is the used symbol' do
       expect(player.disc).to eq('▵')
     end
   end
+  context ' player gets initialized falsely' do
+    it 'Marianne is wrong Name' do
+      expect(player.name).not_to eq('Marianne')
+    end
 
-  context 'let player select a column for his disc' do
-    it 'selects disc' do
-      allow($stdin).to receive(:gets).and_return(4)
-      column = $stdin.gets
-      expect(column).to eq(4)
+    it '√ is not the used symbol' do
+      expect(player.disc).not_to eq('√')
     end
   end
 end
