@@ -14,7 +14,7 @@ describe Player do
     end
 
     it '▵ is the used symbol' do
-      expect(player.disc).to eq('▵')
+      expect(player.symbol).to eq('▵')
     end
   end
   context ' player gets initialized falsely' do
@@ -23,7 +23,7 @@ describe Player do
     end
 
     it '√ is not the used symbol' do
-      expect(player.disc).not_to eq('√')
+      expect(player.symbol).not_to eq('√')
     end
   end
 end

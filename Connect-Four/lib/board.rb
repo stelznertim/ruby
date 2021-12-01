@@ -8,24 +8,27 @@ class Board
   end
 
   def valid_column?(input)
-    input < columns ? check_rows(input) : false
+    return true if input < columns && check_rows(input)
+
+    puts 'The column is not a valid selection. Please select another column.'
+    false
   end
 
   def check_rows(input)
     grid.each do |row|
-      return true if row[input - 1].nil?
+      return true if row[input].nil?
     end
     false
   end
 
   def update(column, symbol)
     grid.reverse.each_with_index do |row, row_index|
-      next unless row[column - 1].nil?
+      next unless row[column].nil?
 
-      grid.reverse[row_index][column - 1] = symbol
+      grid.reverse[row_index][column] = symbol
       break
     end
-
+    show
     grid
   end
 
@@ -85,5 +88,11 @@ class Board
     -+--+--+--+--+--+-
     #{grid[5][0]} | #{grid[5][1]} | #{grid[5][2]} | #{grid[5][3]} | #{grid[5][4]} | #{grid[5][5]} | #{grid[5][6]}
     BOARD
+  end
+
+  def full?
+    return false if grid.flatten.compact.size != grid.flatten.size
+
+    true
   end
 end

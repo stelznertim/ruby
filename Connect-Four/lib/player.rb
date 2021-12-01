@@ -1,13 +1,13 @@
 class Player
-  attr_reader :name, :disc
+  attr_reader :name, :symbol
 
   def initialize(name, symbol)
     @name = name
-    @disc = symbol
+    @symbol = symbol
   end
 
   def select_column
-    puts 'Select a column: '
+    puts "#{name} please select a column: "
     gets.chomp.to_i
   end
 end
